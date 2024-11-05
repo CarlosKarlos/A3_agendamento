@@ -15,6 +15,7 @@ Antes de executar o projeto, verifique se você tem as seguintes ferramentas ins
 
 - [Node.js](https://nodejs.org/) (recomendado a versão LTS)
 - [MySQL](https://www.mysql.com/) ou [XAMPP](https://www.apachefriends.org/index.html) (para um ambiente local de banco de dados)
+- XAMP(não testado)
 
 ## Instalação
 
