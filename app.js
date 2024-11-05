@@ -36,39 +36,33 @@ app.get('/usuarios/cadastrar', (req, res) => {
   res.render('formulario');
 });
 
-app.get('/usuarios/cadastrado', (req, res)=>{
-  res.render('cadastrado');
-});
+
 
 // Processar o cadastro
 app.post('/usuarios/cadastrar', (req, res) => {
   const { cpf, Nome, login, Senha, tipo_usuario } = req.body;
 
   Usuario.create({
-      cpf: cpf,
-      Nome: Nome,
-      login: login,
-      Senha: Senha,
-      tipo_usuario: tipo_usuario
+    cpf,
+    Nome,
+    login,
+    Senha,
+    tipo_usuario
   })
   .then(() => {
-     // Após o cadastro, buscar todos os usuários
-    return Usuario.findAll(); 
+    return Usuario.findAll();
   })
-  
   .then((usuarios) => {
-    // Renderizar a página com a mensagem de sucesso e os usuários
     res.render('formulario', {
-        message: 'Cadastrado com sucesso!',
-        usuarios: usuarios // Passa os usuários para a view
+      message: 'Usuário cadastrado com sucesso!',
+      usuarios: usuarios
     });
-  
   })
-
-
   .catch((erro) => {
-      console.error('Erro ao cadastrar usuário:', erro);
-      res.send("Erro ao cadastrar o usuário: " + erro); // Retorna erro caso ocorra
+    console.error('Erro ao cadastrar usuário:', erro);
+    res.render('formulario', {
+      error: 'Erro ao cadastrar o usuário: ' + erro
+    });
   });
 });
 

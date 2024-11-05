@@ -1,53 +1,42 @@
 <h2>Cadastro de Usuário</h2>
 
 <h1>Cadastrar Usuário</h1>
-    <form action="/usuarios/cadastrar" method="POST">
-        <input type="text" name="cpf" placeholder="CPF" required>
-        
-        
-        <input type="text" name="Nome" placeholder="Nome" required>
-        
-        
-        <input type="text" name="login" placeholder="Login" required>
-       
-       
-        <input type="password" name="Senha" placeholder="Senha" required>
-        
-        
-        
-        <div>
+<form action="/usuarios/cadastrar" method="POST">
+    <input type="text" name="cpf" placeholder="CPF" required>
+    <input type="text" name="Nome" placeholder="Nome" required>
+    <input type="text" name="login" placeholder="Login" required>
+    <input type="password" name="Senha" placeholder="Senha" required>
     
-    
-    
+    <div>
       <label for="tipo_usuario">Tipo de Usuário:</label>
-
       <select id="tipo_usuario" name="tipo_usuario" required>
-      
-      <option value="admin">Administrador</option>
+        <option value="admin">Administrador</option>
+        <option value="med">Médico</option>
+        <option value="user">Usuário</option>
+      </select>
+    </div>
 
-      <option value="med">Médico</option>
+    <button type="submit">Cadastrar</button>
+</form>
 
-      <option value="user">Usuário</option>
-  </select>
-        </div>
+<a href="/usuarios/login">Caso já cadastrado, faça o login</a>
 
+{{#if message}}
+    <h1 style="color: green;">{{message}}</h1>
+{{/if}}
 
-        <button type="submit">Cadastrar</button>
-    </form>
+{{#if error}}
+    <h1 style="color: red;">{{error}}</h1>
+{{/if}}
 
+{{#if usuarios}}
+    <h2>Usuários Cadastrados:</h2>
+    <ul>
+        {{#each usuarios}}
+            <li>{{this.Nome}} - {{this.cpf}} - {{this.login}} - {{this.tipo_usuario}}</li>
+        {{/each}}
+    </ul>
+{{/if}}
 
-
-    {{#if message}}
-        <h1>{{message}}</h1>
-    {{/if}}
-
-    {{#if usuarios}}
-        <h2>Usuários Cadastrados:</h2>
-        <ul>
-            {{#each usuarios}}
-                <li>{{this.Nome}} - {{this.cpf}} - {{this.login}} - {{this.tipo_usuario}}</li>
-            {{/each}}
-        </ul>
-    {{/if}}
 
   
