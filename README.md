@@ -26,21 +26,21 @@ Antes de executar o projeto, verifique se você tem as seguintes ferramentas ins
   ## Navegue até o diretório do projeto:
 
 
-navegar até o arquivo usando CMD
+- navegar até o arquivo usando CMD
 - cd A3_agendamento
 
-  instale dependencias
+  ## instale dependencias
 
-  **npm install exemplo**
+  - npm install exemplo
 
-  Inicie o servidor:
-
-Como iniciar seu aplicativo:
-Para iniciar sua aplicação normalmente, use:
+  ## Inicie o servidor:
 
 
-**npm start**
-Para desenvolvimento, onde o servidor reinicia automaticamente em caso de alterações, use:
+-Para iniciar sua aplicação normalmente, use:
+- **npm start**
+
+
+## Para desenvolvimento, onde o servidor reinicia automaticamente em caso de alterações, use:
 
 
 
