@@ -22,14 +22,14 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(60),
       allowNull: false,
     },
-    tipoUsuario: {
+    tipo_usuario: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   });
 
   Usuario.associate = (models) => {
-    Usuario.hasOne(models.Medico, { foreignKey: 'usuarioCpf' });
+    Usuario.hasMany(models.Exame, { foreignKey: 'cpf_usuario' });
   };
 
   return Usuario;

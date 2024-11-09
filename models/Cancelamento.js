@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   const Cancelamento = sequelize.define('Cancelamento', {
-    idCancelamento: {
+    id_cancelamento: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    exameId: {
+    exame_id: {
       type: DataTypes.INTEGER,
       references: {
         model: 'Exames',
@@ -30,7 +30,7 @@ module.exports = (sequelize) => {
   });
 
   Cancelamento.associate = (models) => {
-    Cancelamento.belongsTo(models.Exame, { foreignKey: 'exameId' });
+    Cancelamento.belongsTo(models.Exame, { foreignKey: 'exame_id' });
   };
 
   return Cancelamento;

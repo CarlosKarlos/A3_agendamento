@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   const Consulta = sequelize.define('Consulta', {
-    idConsulta: {
+    id_consulta: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -12,28 +12,27 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       defaultValue: 'Pendente',
     },
-    usuarioCpf: {
+    usuario_cpf: {
       type: DataTypes.STRING(14),
       references: {
         model: 'Usuarios',
         key: 'cpf',
       },
     },
-    horarioId: {
+    horario_id: {
       type: DataTypes.INTEGER,
       allowNull: true, // Permite null até que o médico defina o horário
       references: {
         model: 'Horarios',
-        key: 'idHorario',
+        key: 'id_horario',
       },
     },
   });
 
   Consulta.associate = (models) => {
-    Consulta.belongsTo(models.Usuario, { foreignKey: 'usuarioCpf' });
-    Consulta.belongsTo(models.Horarios, { foreignKey: 'horarioId' });
+    Consulta.belongsTo(models.Usuario, { foreignKey: 'usuario_cpf' });
+    Consulta.belongsTo(models.Horarios, { foreignKey: 'horario_id' });
   };
 
   return Consulta;
 };
-
