@@ -1,12 +1,15 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
 const path = require('path');
-const { sequelize, Usuario } = require('./models/index'); // Certifique-se de que isso esteja correto
+const { sequelize, Usuario } = require('./models/index'); 
+const apiController = require('./controllers/apiController');
+const configurarCronJob = require('./cronJobs/importarDadosAPI');
 const usuarioRoutes = require('./routes/usuario');
 const examesRoutes = require('./routes/exames');
 const filaRoutes = require('./routes/fila');
 const cancelamentoRoutes = require('./routes/cancelamento');
 const realizadoRoutes = require('./routes/realizado');
+const apiRoutes = require('./routes/apiRoutes');
 
 const app = express();
 
@@ -25,46 +28,27 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.urlencoded({ extended: true }));
 
 // Usando rotas
+app.use('/api', apiRoutes);
 app.use('/usuarios', usuarioRoutes);
 app.use('/exames', examesRoutes);
 app.use('/fila', filaRoutes);
 app.use('/cancelamento', cancelamentoRoutes);
 app.use('/realizado', realizadoRoutes);
 
-// Exibir o formulário de cadastro
-app.get('/usuarios/cadastrar', (req, res) => {
-  res.render('formulario');
-});
+// Chama a função de importação de dados ao iniciar o servidor
+async function importarDadosAoIniciar() {
+  try {
+    console.log('Iniciando a importação de dados da API...');
+    await apiController.importarDadosAPI(); // Chama a função para importar os dados
+    console.log('Importação de dados concluída com sucesso!');
+  } catch (error) {
+    console.error('Erro ao importar dados no início:', error);
+  }
+}
 
+importarDadosAoIniciar();  // Chama a função de importação quando o servidor for iniciado
 
-
-// Processar o cadastro
-app.post('/usuarios/cadastrar', (req, res) => {
-  const { cpf, Nome, login, Senha, tipo_usuario } = req.body;
-
-  Usuario.create({
-    cpf,
-    Nome,
-    login,
-    Senha,
-    tipo_usuario
-  })
-  .then(() => {
-    return Usuario.findAll();
-  })
-  .then((usuarios) => {
-    res.render('formulario', {
-      message: 'Usuário cadastrado com sucesso!',
-      usuarios: usuarios
-    });
-  })
-  .catch((erro) => {
-    console.error('Erro ao cadastrar usuário:', erro);
-    res.render('formulario', {
-      error: 'Erro ao cadastrar o usuário: ' + erro
-    });
-  });
-});
+configurarCronJob();
 
 
 const PORT = 3000;

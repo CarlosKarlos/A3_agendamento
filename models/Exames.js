@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   const Exame = sequelize.define('Exame', {
-    id_exame: {
+    idExame: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING(11),
       allowNull: false,
     },
-    cpf_usuario: {
+    cpfUsuario: {
       type: DataTypes.STRING(14),
       references: {
         model: 'Usuarios',
@@ -30,10 +30,10 @@ module.exports = (sequelize) => {
   });
 
   Exame.associate = (models) => {
-    Exame.belongsTo(models.Usuario, { foreignKey: 'cpf_usuario' });
-    Exame.hasMany(models.Fila, { foreignKey: 'exame_id' });
-    Exame.hasMany(models.Cancelamento, { foreignKey: 'exame_id' });
-    Exame.hasMany(models.Realizado, { foreignKey: 'exame_id' });
+    Exame.belongsTo(models.Usuario, { foreignKey: 'cpfUsuario' });
+    Exame.hasMany(models.Fila, { foreignKey: 'exameId' });
+    Exame.hasMany(models.Cancelamento, { foreignKey: 'exameId' });
+    Exame.hasMany(models.Realizado, { foreignKey: 'exameId' });
   };
 
   return Exame;

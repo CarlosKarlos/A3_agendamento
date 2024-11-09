@@ -1,24 +1,31 @@
 // routes/usuario.js
 const express = require('express');
 const router = express.Router();
-const { Usuario } = require('../models');
+const { Usuario, Medico } = require('../models');
 
-router.post('/cadastrar', async (req, res) => {
-  const { cpf, Nome, login, Senha, tipo_usuario } = req.body;
+router.post('/receber-usuario', async (req, res) => {
+  const { cpf, Nome, login, tipo_usuario, especialidade } = req.body;
 
   try {
-    // Cria o usuário na tabela Usuario
-    const novoUsuario = await Usuario.create({
+    // Adiciona ou atualiza o usuário na tabela Usuario
+    const [usuario, created] = await Usuario.upsert({
       cpf,
       Nome,
       login,
-      Senha,
       tipo_usuario
     });
 
-    res.render('formulario', { message: "Usuário cadastrado com sucesso!" });
+    // Se o tipo_usuario for "medico", adiciona também na tabela Medico
+    if (tipo_usuario.toLowerCase() === 'medico') {
+      await Medico.upsert({
+        usuario_cpf: cpf,
+        especialidade: especialidade || 'A definir',  // Define especialidade ou valor padrão
+      });
+    }
+
+    res.status(200).json({ message: "Dados do usuário processados com sucesso" });
   } catch (error) {
-    res.render('formulario', { error: "Erro ao cadastrar usuário: " + error.message });
+    res.status(400).json({ error: "Erro ao processar dados do usuário: " + error.message });
   }
 });
 

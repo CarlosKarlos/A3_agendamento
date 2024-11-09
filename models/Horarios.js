@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   const Horarios = sequelize.define('Horarios', {
-    id_horario: {
+    idHorario: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -12,11 +12,11 @@ module.exports = (sequelize) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    medico_id: {
+    medicoId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'Medicos',
-        key: 'id_medico',
+        key: 'idMedico',
       },
       allowNull: false,
     },
@@ -27,8 +27,8 @@ module.exports = (sequelize) => {
   });
 
   Horarios.associate = (models) => {
-    Horarios.belongsTo(models.Medico, { foreignKey: 'medico_id' });
-    Horarios.hasMany(models.Consulta, { foreignKey: 'horario_id' });
+    Horarios.belongsTo(models.Medico, { foreignKey: 'medicoId' });
+    Horarios.hasMany(models.Consulta, { foreignKey: 'horarioId' });
   };
 
   return Horarios;

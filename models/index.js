@@ -18,6 +18,7 @@ const Realizado = RealizadoModel(sequelize);
 const Consulta =  ConsultaModel(sequelize);
 const Medico = MedicoModel(sequelize);
 const Horarios = HorariosModel(sequelize);
+
 // Sincronizando o banco de dados
 sequelize.sync({ force: true }) // use { force: false } em produção
     .then(() => console.log('Banco de dados sincronizado com sucesso.'))

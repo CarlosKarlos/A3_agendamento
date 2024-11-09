@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
   const Fila = sequelize.define('Fila', {
-    id_fila: {
+    idFila: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
@@ -20,17 +20,17 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    exame_id: {
+    exameId: {
       type: DataTypes.INTEGER,
       references: {
         model: 'Exames',
-        key: 'id_exame',
+        key: 'idExame',
       },
     },
   });
 
   Fila.associate = (models) => {
-    Fila.belongsTo(models.Exame, { foreignKey: 'exame_id' });
+    Fila.belongsTo(models.Exame, { foreignKey: 'exameId' });
   };
 
   return Fila;
