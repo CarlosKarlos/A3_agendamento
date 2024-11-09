@@ -29,8 +29,19 @@ module.exports = (sequelize) => {
   });
 
   Usuario.associate = (models) => {
-    Usuario.hasMany(models.Exame, { foreignKey: 'cpf_usuario' });
+    Usuario.hasOne(models.Medico, { foreignKey: 'usuario_cpf' });
   };
+
+  // Hook para verificar e adicionar à tabela Medico se tipo_usuario for "medico"
+  Usuario.afterCreate(async (usuario, options) => {
+    const { tipo_usuario, cpf } = usuario;
+    if (tipo_usuario.toLowerCase() === 'medico') {
+      await sequelize.models.Medico.create({
+        usuario_cpf: cpf,
+        especialidade: 'A definir', // Defina um valor padrão ou obtenha do `usuario` se necessário
+      });
+    }
+  });
 
   return Usuario;
 };
