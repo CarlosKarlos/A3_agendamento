@@ -28,8 +28,9 @@ module.exports = (sequelize) => {
     },
   });
 
-  //colocar as ligações aqui
-
+  Usuario.associate = (models) => {
+    Usuario.hasMany(models.Exame, { foreignKey: 'cpf_usuario' });
+  };
 
   return Usuario;
 };

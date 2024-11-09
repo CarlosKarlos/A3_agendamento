@@ -1,23 +1,40 @@
+// models/Exame.js
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-  const Exames = sequelize.define('Exames', {
+  const Exame = sequelize.define('Exame', {
+    id_exame: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
     data: {
       type: DataTypes.DATE,
-      primaryKey: true,
       allowNull: false,
     },
     Tipo: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     Prontuario: {
       type: DataTypes.STRING(11),
       allowNull: false,
     },
+    cpf_usuario: {
+      type: DataTypes.STRING(14),
+      references: {
+        model: 'Usuarios',
+        key: 'cpf',
+      },
+    },
   });
-//colocar as ligações aqui
 
-  return Exames;
+  Exame.associate = (models) => {
+    Exame.belongsTo(models.Usuario, { foreignKey: 'cpf_usuario' });
+    Exame.hasMany(models.Fila, { foreignKey: 'exame_id' });
+    Exame.hasMany(models.Cancelamento, { foreignKey: 'exame_id' });
+    Exame.hasMany(models.Realizado, { foreignKey: 'exame_id' });
+  };
+
+  return Exame;
 };
-
