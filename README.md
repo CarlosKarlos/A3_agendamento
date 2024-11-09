@@ -8,7 +8,7 @@ Este projeto é uma aplicação de agendamento que utiliza Node.js, Express e Se
 - **Express**: Framework web para Node.js.
 - **Sequelize**: ORM (Object-Relational Mapping) para facilitar a interação com o banco de dados MySQL.
 - **Handlebars**: Motor de templates para renderizar HTML dinâmico.
-- **Axios busca dados de uma API**: externa e os traz para o seu sistema, onde são manipulados e armazenados no banco de dados.
+- **Axios**: busca dados de uma API externa e os traz para o seu sistema, onde são manipulados e armazenados no banco de dados.
 - **Cron Job**: mantém o sistema atualizado periodicamente, executando tarefas como importar dados da API externa a cada intervalo configurado.
 
 ## Pré-requisitos
